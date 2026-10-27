@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GS Espetos – Cardápio</title>
+<style>
+:root{--am:#ffd21f;--pr:#0b0705;--card:#161110;--creme:#ffffff;--cinza:#b5aaa4;--vm:#e0261b;--lj:#ff7a1a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--pr);color:var(--creme);overflow-x:hidden}
+body::after{content:'';position:fixed;left:0;right:0;bottom:0;height:90px;background:linear-gradient(0deg,rgba(255,90,10,.35),transparent);pointer-events:none;z-index:1}
+header{position:sticky;top:0;z-index:20;background:var(--am);color:#111;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;gap:10px}
+.logo{font-weight:900;font-size:1.15rem;line-height:1.1;text-transform:uppercase}
+header nav{display:flex;align-items:center;gap:14px}
+header a{color:#111;text-decoration:none;font-weight:700}
+#cartBtn{background:#111;color:#fff;border:0;border-radius:40px;padding:10px 16px;display:flex;align-items:center;gap:10px;font-size:1.1rem;cursor:pointer}
+#cartBtn b{background:var(--am);color:#111;border-radius:50%;min-width:26px;height:26px;display:grid;place-items:center;font-size:.95rem}
+.hero{padding:44px 18px 30px;background:radial-gradient(circle at 80% 0%,rgba(255,122,26,.28),transparent 55%),var(--pr)}
+.hero h1{font-size:clamp(3.6rem,19vw,6.5rem);line-height:.9;letter-spacing:-3px;font-weight:900;text-transform:uppercase}
+.hero h1{color:var(--creme)}.hero h1 .gs{background:linear-gradient(180deg,#ffd21f,#ff7a1a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h1 span{color:var(--creme);display:block}
+.hero p{font-size:1.2rem;line-height:1.5;margin:22px 0}
+.pill{display:inline-block;background:var(--vm);color:#fff;font-weight:800;padding:14px 20px;border-radius:16px;transform:rotate(-2deg);margin-bottom:24px}
+.btn{display:block;width:fit-content;border:0;cursor:pointer;font-weight:800;font-size:1.1rem;padding:16px 28px;border-radius:40px;text-decoration:none;margin-bottom:18px}
+.b1{background:var(--am);color:#111;box-shadow:6px 6px 0 var(--vm)}
+.b2{background:transparent;color:var(--am);border:3px solid var(--am);box-shadow:6px 6px 0 var(--vm)}
+section{padding:10px 18px 20px}
+h2{color:var(--am);font-size:1.7rem;text-transform:uppercase;margin:26px 0 14px;border-left:6px solid var(--vm);padding-left:12px}
+.card{background:var(--card);border:3px solid var(--vm);border-radius:26px;padding:18px;margin-bottom:16px;display:flex;gap:16px;align-items:center}
+.card .em{font-size:3.2rem}
+.card h3{color:var(--am);font-size:1.4rem;margin-bottom:4px}
+.card p{color:var(--cinza);font-size:.95rem;line-height:1.4}
+.card .pr{margin:8px 0;font-weight:700}
+.add{background:var(--am);color:#111;border:0;border-radius:30px;padding:10px 20px;font-weight:800;cursor:pointer;box-shadow:4px 4px 0 var(--vm)}
+.local{margin:20px 18px 110px;padding:18px;border-radius:20px;background:var(--card);text-align:center;line-height:1.6;color:var(--cinza)}
+.local b{color:var(--am)}
+#wa{position:fixed;right:16px;bottom:18px;width:64px;height:64px;border-radius:50%;background:#4cd964;display:grid;place-items:center;font-size:1.9rem;text-decoration:none;box-shadow:0 0 0 5px #111;z-index:15}
+#drawer{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;z-index:30}
+#drawer.on{display:block}
+#box{position:absolute;bottom:0;left:0;right:0;max-height:90vh;overflow:auto;background:var(--pr);border-top:4px solid var(--vm);border-radius:26px 26px 0 0;padding:20px 18px}
+#box h2{margin-top:0}
+.li{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #333}
+.li .c{display:flex;gap:10px;align-items:center}
+.li button{width:32px;height:32px;border-radius:50%;border:0;background:var(--am);font-weight:900;font-size:1.1rem;cursor:pointer}
+input,select{width:100%;padding:13px;border-radius:12px;border:0;margin-top:10px;font-size:1rem}
+#fechar{float:right;background:none;border:0;color:var(--am);font-size:1.8rem;cursor:pointer}
+.vazio{color:var(--cinza);padding:10px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">GS<br>Espetos</div>
+  <nav><a href="#cardapio">Cardápio</a>
+  <button id="cartBtn" onclick="abrir()">🛒 <b id="cnt">0</b></button></nav>
+</header>
+
+<div class="hero">
+  <h1><i class="gs" style="font-style:normal">GS</i> <span>ESPETOS</span></h1>
+  <p>Sabor que reúne amigos. Espetos na brasa com delivery e retirada.</p>
+  <div class="pill">🔥 Hoje: espetos simples completos</div>
+  <a class="btn b1" id="waHero" href="#" target="_blank" rel="noopener">Pedir pelo WhatsApp</a>
+  <a class="btn b2" href="#cardapio">Ver cardápio</a>
+</div>
+
+<section id="cardapio">
+  <h2>Espetos simples completos</h2><div id="espetos"></div>
+  <h2>Porções</h2><div id="porcoes"></div>
+  <h2>Bebidas</h2><div id="bebidas"></div>
+</section>
+
+<div class="local">
+  <b>📍 Avenida Tranquedo Neves</b><br>próximo ao açougue Pague Menos<br>
+  GS Espetos é qualidade, sabor e tradição!
+</div>
+
+<a id="wa" href="#" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">💬</a>
+
+<div id="drawer" onclick="if(event.target===this)fechar()">
+  <div id="box">
+    <button id="fechar" onclick="fechar()">×</button>
+    <h2>Seu pedido</h2>
+    <div id="lista"></div>
+    <div id="total" style="font-weight:800;margin:12px 0"></div>
+    <input id="nome" placeholder="Seu nome">
+    <select id="tipo"><option>Delivery</option><option>Retirada no local</option></select>
+    <input id="end" placeholder="Endereço para entrega">
+    <input id="obs" placeholder="Observações (ex: sem cebola)">
+    <button class="btn b1" id="enviar" style="margin-top:20px;width:100%;text-align:center" onclick="enviar()">Enviar pelo WhatsApp</button>
+  </div>
+</div>
+
+<script>
+// ===== EDITE AQUI =====
+const WHATSAPP = "5566999133561"; // DDI + DDD + número, só números
+// p: preço (ex: 12.5) ou null = "Consulte"
+const MENU = {
+  espetos:[
+    {n:"Espeto de Frango",e:"🍗",d:"Espeto simples completo na brasa.",p:null},
+    {n:"Espeto de Carne",e:"🥩",d:"Espeto simples completo na brasa.",p:null},
+    {n:"Espeto de Linguiça",e:"🌭",d:"Espeto simples completo na brasa.",p:null},
+    {n:"Espeto de Costelinha",e:"🍖",d:"Espeto simples completo na brasa.",p:null},
+    {n:"Espeto de Porco",e:"🐖",d:"Espeto simples completo na brasa.",p:null}],
+  porcoes:[
+    {n:"Arroz",e:"🍚",d:"Porção de arroz.",p:null},
+    {n:"Feijão tropeiro",e:"🫘",d:"Porção de feijão tropeiro.",p:null},
+    {n:"Salada",e:"🥗",d:"Porção de salada.",p:null},
+    {n:"Mandioca",e:"🥔",d:"Porção de mandioca.",p:null}],
+  bebidas:[
+    {n:"Refrigerante",e:"🥤",d:"Bebidas gerais.",p:null},
+    {n:"Suco",e:"🧃",d:"Bebidas gerais.",p:null},
+    {n:"Cerveja",e:"🍺",d:"Bebidas gerais.",p:null}]
+};
+// ======================
+const all=[].concat(MENU.espetos,MENU.porcoes,MENU.bebidas);
+const qtd={};
+const fmt=v=>v==null?"Consulte":"R$ "+v.toFixed(2).replace(".",",");
+Object.keys(MENU).forEach(k=>{
+  document.getElementById(k).innerHTML=MENU[k].map(i=>`<div class="card"><div class="em">${i.e}</div><div><h3>${i.n}</h3><p>${i.d}</p><div class="pr">${fmt(i.p)}</div><button class="add" onclick="mudar('${i.n}',1)">Adicionar</button></div></div>`).join("");
+});
+function mudar(n,d){qtd[n]=Math.max(0,(qtd[n]||0)+d);if(!qtd[n])delete qtd[n];draw();}
+function draw(){
+  const ks=Object.keys(qtd);
+  document.getElementById("cnt").textContent=ks.reduce((a,k)=>a+qtd[k],0);
+  document.getElementById("lista").innerHTML=ks.length?ks.map(k=>`<div class="li"><span>${k}</span><span class="c"><button onclick="mudar('${k}',-1)">−</button>${qtd[k]}<button onclick="mudar('${k}',1)">+</button></span></div>`).join(""):'<div class="vazio">Seu carrinho está vazio.</div>';
+  let t=0,ok=true;ks.forEach(k=>{const i=all.find(x=>x.n===k);if(i.p==null)ok=false;else t+=i.p*qtd[k];});
+  document.getElementById("total").textContent=ks.length&&ok?"Total: "+fmt(t):"";
+  document.getElementById("enviar").style.opacity=ks.length?1:.4;
+}
+function abrir(){document.getElementById("drawer").classList.add("on");draw();}
+function fechar(){document.getElementById("drawer").classList.remove("on");}
+function enviar(){
+  const ks=Object.keys(qtd);
+  if(!ks.length){alert("Adicione itens ao pedido.");return;}
+  const tipo=document.getElementById("tipo").value,nome=document.getElementById("nome").value.trim(),
+        end=document.getElementById("end").value.trim(),obs=document.getElementById("obs").value.trim();
+  let m="*Pedido – GS Espetos* 🔥\n\n"+ks.map(k=>`• ${qtd[k]}x ${k}`).join("\n")+`\n\n*Tipo:* ${tipo}`;
+  if(nome)m+=`\n*Nome:* ${nome}`;
+  if(tipo==="Delivery"&&end)m+=`\n*Endereço:* ${end}`;
+  if(obs)m+=`\n*Obs:* ${obs}`;
+  window.open("https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(m),"_blank");
+}
+const SAUDACAO="Olá! Vim pelo cardápio da GS Espetos e gostaria de fazer um pedido. 🔥";
+["wa","waHero"].forEach(id=>document.getElementById(id).href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(SAUDACAO));
+draw();
+</script>
+</body>
+</html>
